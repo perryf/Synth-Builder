@@ -6,13 +6,37 @@ class Main extends Component {
   constructor() {
     super()
     this.state = {
-      toneAmount: 0
+      totalSounds: ['synth'],
+      synth: {}
     }
   }
+
+  connectToMaster(synth) {
+    synth.toMaster()
+  }
+
+  addSound(e) {
+    this.setState({
+      totalSounds: this.state.totalSounds.concat('synth')
+    })
+  }
+
   render() {
+    let synths = this.state.totalSounds.map((e, index) => {
+      return (
+        <Sound
+          key={index}
+          index={index + 1}
+          synth={this.state.synth}
+          toneAmount={this.state.totalSounds}
+          connectToMaster={(e) => this.connectToMaster(e)}
+        />
+      )
+    })
     return (
       <div>
-        <Sound toneAmount={this.state.toneAmount}/>
+        {synths}
+        <button onClick={(e) => this.addSound(e)}>Add Oscillator</button>
       </div>
     )
   }

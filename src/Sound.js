@@ -3,16 +3,10 @@ import Tone from 'tone'
 import './Sound.css'
 
 class Sound extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      synth: {}
-      // playing: false,
-      // synth: {},
-      // frequency: 440,
-      // volume: 0,
-      // waveForm: 'sine',
-      // partials: 1
+      synth: this.props.synth
     }
     this.changeWave = this.changeWave.bind(this)
     this.changePartial = this.changePartial.bind(this)
@@ -32,7 +26,8 @@ class Sound extends Component {
         sustain: 0.1,
         release: 0.1
       },
-    }).toMaster()
+    })
+    this.props.connectToMaster(synth)
     synth.playing = false
 
     this.setState({
@@ -154,8 +149,7 @@ class Sound extends Component {
     )
     return(
       <div>
-        <h1>Hi there</h1>
-        <p>{this.props.toneAmount}</p>
+        <h2>Synth {this.props.index}</h2>
         <button onClick={(e) => this.startStop()}>Start</button>
         <p>Pitch</p>
         {pitchChanger}

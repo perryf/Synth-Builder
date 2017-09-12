@@ -24,19 +24,23 @@ class Main extends Component {
   render() {
     let synths = this.state.totalSounds.map((e, index) => {
       return (
-        <Sound
-          key={index}
-          index={index + 1}
-          synth={this.state.synth}
-          toneAmount={this.state.totalSounds}
-          connectToMaster={(e) => this.connectToMaster(e)}
-        />
+        <div className="synth">
+          <Sound
+            key={index}
+            index={index + 1}
+            synth={this.state.synth}
+            toneAmount={this.state.totalSounds}
+            connectToMaster={(e) => this.connectToMaster(e)}
+          />
+        </div>
       )
     })
     return (
       <div>
-        {synths}
         <button onClick={(e) => this.addSound(e)}>Add Oscillator</button>
+        <div className="synth-container">
+          {synths}
+        </div>
       </div>
     )
   }

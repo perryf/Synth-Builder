@@ -24,9 +24,8 @@ class Main extends Component {
   render() {
     let synths = this.state.totalSounds.map((e, index) => {
       return (
-        <div className="synth">
+        <div className="synth" key={index}>
           <Sound
-            key={index}
             index={index + 1}
             synth={this.state.synth}
             toneAmount={this.state.totalSounds}

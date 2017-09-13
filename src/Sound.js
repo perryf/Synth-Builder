@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import update from 'immutability-helper'
 import Tone from 'tone'
 import './Sound.css'
 
@@ -13,38 +14,36 @@ class Sound extends Component {
   }
   componentWillMount() {
     var synth = new Tone.Synth({
+      frequency: 440,
       oscillator: {
         type: 'sine',
         modulationType: 'sine1',
         modulationIndex: 3,
         harmonicity: 3.4,
-        frequency: 440
       },
       envelope: {
         attack: 0.01,
         decay: 0.1,
         sustain: 0.1,
         release: 0.1
-      },
+      }
     })
-    this.props.connectToMaster(synth)
     synth.playing = false
-
+    this.props.connectToMaster(synth)
     this.setState({
       synth: synth
     })
   }
 
   startStop() {
-    let synth = this.state.synth
-    if (synth.playing === false) {
-      synth.playing = true
+    if (this.state.synth.playing === false) {
+      let synth = update(this.state.synth, {playing: {$set: true}})
       this.setState({
         synth: synth
       })
       synth.triggerAttack(synth.oscillator.frequency.value, '+0.05')
     } else {
-      synth.playing = false
+      let synth = update(this.state.synth, {playing: {$set: false}})
       this.setState({
         synth: synth
       })
@@ -52,29 +51,23 @@ class Sound extends Component {
     }
   }
   changePitch(slider) {
-    let synth = this.state.synth
     let newPitch = slider.target.value * 55 + 40
-    console.log(newPitch)
-    synth.frequency.value = newPitch
+    let synth = update(this.state.synth, {frequency: {value: {$set: newPitch}}})
     this.setState({
       synth: synth
     })
   }
   changeVolume(slider) {
-    let synth = this.state.synth
     let newVolume = (slider.target.value * 0.58) - 48
-    console.log(newVolume)
-    synth.volume.value = newVolume
+    let synth = update(this.state.synth, {volume: {value: {$set: newVolume}}})
     this.setState({
       synth: synth
     })
   }
 
   changeWave(newWave) {
-
-    let synth = this.state.synth
-    let length = synth.oscillator.type.length
-    let lastChar = synth.oscillator.type.charAt([length - 1])
+    let length = this.state.synth.oscillator.type.length
+    let lastChar = this.state.synth.oscillator.type.charAt([length - 1])
     let partial = ''
     if (!Number(lastChar)) {
       partial = ''
@@ -83,32 +76,27 @@ class Sound extends Component {
     }
 
     newWave = newWave + partial
-    synth.oscillator.type = newWave
-    console.log(newWave)
+    let synth = update(this.state.synth, {oscillator: {type: {$set: newWave}}})
     this.setState({
       synth: synth
     })
   }
+
   handleChangeWave(select) {
     let newWave = select.target.value
-    console.log(newWave)
     this.changeWave(newWave)
   }
 
   changePartial(newPartial) {
-    console.log('newPartial: ' + newPartial)
-    console.log('oldPartial: ' + this.state.synth.oscillator.type)
     let synth = this.state.synth
-    let type = synth.oscillator.type
     let length = synth.oscillator.type.length
     let lastChar = synth.oscillator.type.charAt([length - 1])
+    let type = synth.oscillator.type
     if (isNaN(lastChar)) {
-      console.log('should not end in a number: ' + type)
     } else {
-      synth.oscillator.type = synth.oscillator.type.slice(0, - 1)
-      console.log(synth.oscillator.type)
+      type = type.slice(0, - 1)
     }
-    synth.oscillator.type = synth.oscillator.type + newPartial
+    synth = update(synth, {oscillator: {type: {$set: type + newPartial}}})
 
     this.setState({
       synth: synth

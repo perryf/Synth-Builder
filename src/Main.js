@@ -1,15 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import Tone from 'tone'
 import Sound from './Sound'
 import Filter from './Filter'
 import './Main.css'
 
-const blankSynth = {}
+  var synthInit = new Tone.Synth({
+    frequency: 440,
+    oscillator: {
+      type: 'sine'
+      // modulationType: 'sine1',
+      // modulationIndex: 3,
+      // harmonicity: 3.4,
+    },
+    envelope: {
+      attack: 0.01,
+      decay: 0.1,
+      sustain: 0.1,
+      release: 0.1
+    }
+  })
 
 class Main extends Component {
   constructor() {
     super()
     this.state = {
-      totalSounds: [blankSynth]
+      totalSounds: [synthInit]
     }
   }
 
@@ -19,20 +34,21 @@ class Main extends Component {
 
   addSound(e) {
     this.setState({
-      totalSounds: this.state.totalSounds.concat(blankSynth)
+      totalSounds: this.state.totalSounds.concat(synthInit)
     })
   }
 
   render() {
-    console.log(this.state.totalSounds)
+    // console.log(this.state.totalSounds)
     let synths = this.state.totalSounds.map((synth, index) => {
+      this.connectToMaster(synth)
       return (
         <div className="synth" key={index}>
           <Sound
             index={index + 1}
             synth={synth}
-            toneAmount={this.state.totalSounds}
-            connectToMaster={(synth) => this.connectToMaster(synth)}
+            // toneAmount={this.state.totalSounds}
+            // connectToMaster={(synth) => this.connectToMaster(synth)}
           />
         </div>
       )

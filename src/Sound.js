@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import update from 'immutability-helper'
-import Tone from 'tone'
 import './Sound.css'
 
 class Sound extends Component {
@@ -13,23 +12,9 @@ class Sound extends Component {
     this.changePartial = this.changePartial.bind(this)
   }
   componentWillMount() {
-    var synth = new Tone.Synth({
-      frequency: 440,
-      oscillator: {
-        type: 'sine'
-        // modulationType: 'sine1',
-        // modulationIndex: 3,
-        // harmonicity: 3.4,
-      },
-      envelope: {
-        attack: 0.01,
-        decay: 0.1,
-        sustain: 0.1,
-        release: 0.1
-      }
-    })
-    synth.playing = false
-    this.props.connectToMaster(synth)
+    let synth = update(this.state.synth, {playing: {$set: false}})
+    // synth.playing = false
+    // this.props.connectToMaster(synth)
     this.setState({
       synth: synth
     })

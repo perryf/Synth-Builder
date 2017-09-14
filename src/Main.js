@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Tone from 'tone'
 import Sound from './Sound'
-import Filter from './Filter'
+import Distortion from './Distortion'
 import './Main.css'
 
   var synthInit = new Tone.Synth({
@@ -20,21 +20,41 @@ import './Main.css'
     }
   })
 
+  var distortion = new Tone.BitCrusher(4)
+
 class Main extends Component {
   constructor() {
     super()
     this.state = {
-      totalSounds: [synthInit]
+      totalSounds: [synthInit],
+      distortionToggle: null
     }
   }
 
   connectToMaster(synth) {
-    synth.toMaster()
+    console.log('')
+    if (this.state.distortionToggle) {
+      synth.connect(distortion)
+      distortion.toMaster()
+    } else if (this.state.distortionToggle === false) {
+      synth.disconnect(distortion)
+      synth.toMaster()
+    }
+    else {
+      synth.toMaster()
+    }
   }
 
   addSound(e) {
     this.setState({
       totalSounds: this.state.totalSounds.concat(synthInit)
+    })
+  }
+
+  distToggleHandler(e) {
+    console.log(e.target.checked)
+    this.setState({
+      distortionToggle: e.target.checked
     })
   }
 
@@ -49,6 +69,13 @@ class Main extends Component {
             synth={synth}
             // toneAmount={this.state.totalSounds}
             // connectToMaster={(synth) => this.connectToMaster(synth)}
+          />
+          <label>
+            Distortion Toggle
+            <input type="checkbox" onClick={(e) => this.distToggleHandler(e)}></input>
+          </label>
+          <Distortion
+            distortion={distortion}
           />
         </div>
       )

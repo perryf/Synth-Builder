@@ -16,10 +16,10 @@ class Sound extends Component {
     var synth = new Tone.Synth({
       frequency: 440,
       oscillator: {
-        type: 'sine',
-        modulationType: 'sine1',
-        modulationIndex: 3,
-        harmonicity: 3.4,
+        type: 'sine'
+        // modulationType: 'sine1',
+        // modulationIndex: 3,
+        // harmonicity: 3.4,
       },
       envelope: {
         attack: 0.01,

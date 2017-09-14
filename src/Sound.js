@@ -13,8 +13,6 @@ class Sound extends Component {
   }
   componentWillMount() {
     let synth = update(this.state.synth, {playing: {$set: false}})
-    // synth.playing = false
-    // this.props.connectToMaster(synth)
     this.setState({
       synth: synth
     })
@@ -101,10 +99,7 @@ class Sound extends Component {
     var waveChanger = (
       <select onChange={(e) => this.handleChangeWave(e)}>
         <option value='sine'>Sine</option>
-        {/* <option value='sine2'>Sine2</option> */}
         <option value='square'>Square</option>
-        {/* <option value='square2'>Square2</option> */}
-        {/* <option value='square6'>Square6</option> */}
         <option value='sawtooth'>Sawtooth</option>
         <option value='triangle'>Triangle</option>
       </select>

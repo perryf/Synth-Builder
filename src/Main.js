@@ -30,16 +30,17 @@ class Main extends Component {
   }
 
   connectToMaster(synth, distortion) {
-    if (distortion.toggle) {
+    if (distortion.toggle === true) {
       synth.connect(distortion)
       distortion.toMaster()
     } else if (distortion.toggle === false) {
-      synth.disconnect(distortion)
+      distortion.disconnect()
       synth.toMaster()
     }
     else {
       synth.toMaster()
     }
+
   }
 
   addSound() {
@@ -53,7 +54,7 @@ class Main extends Component {
     newDist.toggle = null
 
     // let newSynthArray = (this.state.synths, {$push: [newSynth]})
-
+    //
     // this.setState({
     //   synths: this.state.synths.concat(newSynth),
     //   distortion: this.state.distortion.concat(newDist)

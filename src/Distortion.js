@@ -12,26 +12,25 @@ class Distortion extends Component {
 
   changeDist(slider) {
     let newDistAmt = slider.target.value * 0.08
-    let distortion = update(this.state.distortion, {bits: {$set: newDistAmt}})
-    this.setState = {
-      distortion: distortion
-    }
+    let newDistortion = update(this.state.distortion, {bits: {$set: newDistAmt}})
+    this.setState({
+      distortion: newDistortion
+    })
   }
 
   changeWet(slider) {
     let newWetAmt = slider.target.value * 0.01
     console.log(this.state.distortion)
-    let distortion = update(this.state.distortion, {wet: {value: {$set: newWetAmt}}})
-    this.setState = {
-      distortion: distortion
-    }
+    let newDistortion = update(this.state.distortion, {wet: {value: {$set: newWetAmt}}})
+    this.setState({
+      distortion: newDistortion
+    })
   }
 
   render() {
     let distAmt = (
       <input type="range" className="slider reverse" onInput={(e) => this.changeDist(e)}/>
     )
-
     let wetAmt = (
       <input type="range" className="slider" onInput={(e) => this.changeWet(e)}/>
     )

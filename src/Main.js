@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import update from 'immutability-helper'
 import Tone from 'tone'
 import Sound from './Sound'
+import Lfo from './Lfo'
 import Distortion from './Distortion'
 import './Main.css'
 
@@ -10,6 +11,10 @@ import './Main.css'
     oscillator: { type: 'sine' },
     envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.1 }
   })
+
+  // var lfoInit = new Tone.LFO(1, 400, 4000);
+  // lfoInit.toggle = null
+  // lfo.connect(filter.frequency);
 
   var distortionInit = new Tone.BitCrusher(4)
   distortionInit.toggle = null
@@ -20,6 +25,7 @@ class Main extends Component {
     this.state = {
       synths: [synthInit],
       distortion: [distortionInit]
+      // lfo: [lfoInit]
     }
   }
 
@@ -37,18 +43,24 @@ class Main extends Component {
   }
 
   addSound() {
-    let newSynth = new Tone.Synth({
+    var newSynth = new Tone.Synth({
       frequency: 440,
       oscillator: { type: 'sine' },
       envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.1 }
     })
 
-    let newDist = new Tone.BitCrusher(4)
-    distortionInit.toggle = null
+    var newDist = new Tone.BitCrusher(4)
+    newDist.toggle = null
 
+    // let newSynthArray = (this.state.synths, {$push: [newSynth]})
+
+    // this.setState({
+    //   synths: this.state.synths.concat(newSynth),
+    //   distortion: this.state.distortion.concat(newDist)
+    // })
     this.setState({
-      synths: this.state.synths.concat(newSynth),
-      distortion: this.state.distortion.concat(newDist)
+      synths: [...this.state.synths, newSynth],
+      distortion: [...this.state.distortion, newDist]
     })
   }
 
@@ -64,14 +76,21 @@ class Main extends Component {
 
   render() {
     let synths = this.state.synths.map((synth, index) => {
+      // let lfo = this.state.lfo[index]
       let distortion = this.state.distortion[index]
       this.connectToMaster(synth, distortion)
+      console.log(this.state.synths)
+      console.log(this.state.distortion)
       return (
         <div className="synth" key={index}>
           <Sound
             index={index + 1}
             synth={synth}
           />
+          {/* <Lfo
+            index={index + 1}
+            lfo={lfo}
+          /> */}
           <label>
             Distortion Toggle
             <input type="checkbox" onClick={(e) => this.distToggleHandler(e, distortion, index)}></input>

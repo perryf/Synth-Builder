@@ -20,7 +20,6 @@ class Distortion extends Component {
 
   changeWet(slider) {
     let newWetAmt = slider.target.value * 0.01
-    console.log(this.state.distortion)
     let newDistortion = update(this.state.distortion, {wet: {value: {$set: newWetAmt}}})
     this.setState({
       distortion: newDistortion
@@ -32,7 +31,7 @@ class Distortion extends Component {
       <input type="range" className="slider reverse" onInput={(e) => this.changeDist(e)}/>
     )
     let wetAmt = (
-      <input type="range" className="slider" onInput={(e) => this.changeWet(e)}/>
+      <input type="range" className="slider" defaultValue="0" onInput={(e) => this.changeWet(e)}/>
     )
     return(
       <div className="distortion">

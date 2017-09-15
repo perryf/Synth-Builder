@@ -17,7 +17,6 @@ class Sound extends Component {
       synth: synth
     })
   }
-
   startStop() {
     if (this.state.synth.playing === false) {
       let synth = update(this.state.synth, {playing: {$set: true}})
@@ -33,6 +32,15 @@ class Sound extends Component {
       synth.triggerRelease()
     }
   }
+  changePitchText(input) {
+    if (input.keyCode === 13) {
+      let newPitch = input.target.value
+      let synth = update(this.state.synth, {frequency: {value: {$set: newPitch}}})
+      this.setState({
+        synth: synth
+      })
+    }
+  }
   changePitch(slider) {
     let newPitch = slider.target.value * 55 + 40
     let synth = update(this.state.synth, {frequency: {value: {$set: newPitch}}})
@@ -41,13 +49,13 @@ class Sound extends Component {
     })
   }
   changeVolume(slider) {
-    let newVolume = (slider.target.value * 0.58) - 48
+    let newVolume = (slider.target.value * 0.68) - 48
+    console.log(newVolume)
     let synth = update(this.state.synth, {volume: {value: {$set: newVolume}}})
     this.setState({
       synth: synth
     })
   }
-
   changeWave(newWave) {
     let length = this.state.synth.oscillator.type.length
     let lastChar = this.state.synth.oscillator.type.charAt([length - 1])
@@ -57,19 +65,16 @@ class Sound extends Component {
     } else {
       partial = lastChar
     }
-
     newWave = newWave + partial
     let synth = update(this.state.synth, {oscillator: {type: {$set: newWave}}})
     this.setState({
       synth: synth
     })
   }
-
   handleChangeWave(select) {
     let newWave = select.target.value
     this.changeWave(newWave)
   }
-
   changePartial(newPartial) {
     let synth = this.state.synth
     let length = synth.oscillator.type.length
@@ -85,15 +90,14 @@ class Sound extends Component {
       synth: synth
     })
   }
-
   handleChangePartial(select) {
     let newPartial = select.target.value
     this.changePartial(newPartial)
   }
 
   render() {
-    var pitchChanger = <input type="range" className="slider" onInput={(e) => this.changePitch(e)}/>
-
+    var pitchChangerText = <input type="text" className="text-box" onKeyDown={(e) => this.changePitchText(e)} />
+    var pitchChanger = <input type="range" className="slider" defaultValue="7" onInput={(e) => this.changePitch(e)}/>
     var volumeChanger = <input type="range" className="slider" onInput={(e) => this.changeVolume(e)}/>
 
     var waveChanger = (
@@ -104,7 +108,6 @@ class Sound extends Component {
         <option value='triangle'>Triangle</option>
       </select>
     )
-
     var partialChanger = (
       <select onChange={(e) => this.handleChangePartial(e)}>
         <option value='1'>1</option>
@@ -118,8 +121,10 @@ class Sound extends Component {
     return(
       <div>
         <h2>Synth {this.props.index}</h2>
-        <button onClick={(e) => this.startStop()}>Start</button>
+        <button onClick={(e) => this.startStop()}>Start/Stop</button>
         <p>Pitch</p>
+        {pitchChangerText}
+        <br/>
         {pitchChanger}
         <p>Volume</p>
         {volumeChanger}

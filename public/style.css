@@ -1,10 +1,10 @@
-footer {
+.copy {
   position: absolute;
-  bottom: 0;
-  width: 100%;
+  top: 0;
+  right: 0;
 }
 
-.footer-text {
+.copy-text {
   color: #EEE;
   text-align: right;
   padding-right: 6px;

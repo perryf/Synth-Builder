@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import update from 'immutability-helper'
 import Tone from 'tone'
 import Sound from './Sound'
-import Tremolo from './Tremolo'
+import Chorus from './Chorus'
 import Distortion from './Distortion'
 import './Main.css'
 
@@ -12,9 +12,9 @@ import './Main.css'
     envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.1 }
   })
 
-  var tremoloInit = new Tone.Chorus(4, 2.5, 0.5)
-  tremoloInit.toggle = null
-  tremoloInit.wet.value = 0
+  var chorusInit = new Tone.Chorus(4, 2.5, 0.5)
+  chorusInit.toggle = null
+  chorusInit.wet.value = 0
 
   var distortionInit = new Tone.BitCrusher(4)
   distortionInit.toggle = null
@@ -26,33 +26,12 @@ class Main extends Component {
     this.state = {
       synths: [synthInit],
       distortions: [distortionInit],
-      tremolos: [tremoloInit]
+      choruses: [chorusInit]
     }
   }
 
-  // connectToMaster(synth, tremolo, distortion) {
-  //   if (tremolo.toggle && distortion.toggle) {
-  //     distortion.dispose()
-  //     tremolo.dispose()
-  //     // distortion.toMaster()
-  //     console.log('test')
-  //     synth.chain(tremolo, distortion, Tone.Master)
-  //   } else if (tremolo.toggle === true && distortion.toggle === false) {
-  //     distortion.disconnect()
-  //     // synth.toMaster()
-  //     synth.chain(tremolo, Tone.Master)
-  //   } else if (tremolo.toggle === false && distortion === true) {
-  //     tremolo.disconnect()
-  //     // synth.toMaster()
-  //     synth.chain(distortion, Tone.Master)
-  //   }
-  //   else {
-  //     synth.toMaster()
-  //   }
-  // }
-
-  connectToMaster(synth, tremolo, distortion) {
-    synth.chain(tremolo, distortion, Tone.Master)
+  connectToMaster(synth, chorus, distortion) {
+    synth.chain(chorus, distortion, Tone.Master)
   }
 
   addSound() {
@@ -62,9 +41,9 @@ class Main extends Component {
       envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.1 }
     })
 
-    var newTremolo = new Tone.Chorus(9, 1);
-    newTremolo.toggle = null
-    newTremolo.wet.value = 0
+    var newChorus = new Tone.Chorus(9, 1);
+    newChorus.toggle = null
+    newChorus.wet.value = 0
 
     var newDist = new Tone.BitCrusher(4)
     newDist.toggle = null
@@ -72,17 +51,17 @@ class Main extends Component {
 
     this.setState({
       synths: [...this.state.synths, newSynth],
-      tremolos: [...this.state.tremolos, newTremolo],
+      choruses: [...this.state.choruses, newChorus],
       distortions: [...this.state.distortions, newDist]
     })
   }
 
-  tremoloToggleHandler(e, distortion, index) {
+  chorusToggleHandler(e, distortion, index) {
     let value = e.target.checked
-    let newTremolo = update(this.state.tremolos[index], {toggle: {$set: value}})
-    let newTremoloArray = update(this.state.tremolos, {$splice: [[index, 1, newTremolo]]})
+    let newChorus = update(this.state.choruses[index], {toggle: {$set: value}})
+    let newChorusArray = update(this.state.choruses, {$splice: [[index, 1, newChorus]]})
     this.setState({
-      tremolos: newTremoloArray
+      choruses: newChorusArray
     })
   }
 
@@ -97,11 +76,9 @@ class Main extends Component {
 
   render() {
     let synths = this.state.synths.map((synth, index) => {
-      let tremolo = this.state.tremolos[index]
+      let chorus = this.state.choruses[index]
       let distortion = this.state.distortions[index]
-      console.log(this.state.tremolos)
-      console.log(distortion)
-      this.connectToMaster(synth, tremolo, distortion)
+      this.connectToMaster(synth, chorus, distortion)
       return (
         <div className="synth" key={index}>
           <Sound
@@ -109,12 +86,12 @@ class Main extends Component {
             synth={synth}
           />
           <label>
-            Tremolo Toggle
-            <input type="checkbox" onClick={(e) => this.tremoloToggleHandler(e, tremolo, index)}></input>
+            Chorus Toggle
+            <input type="checkbox" onClick={(e) => this.chorusToggleHandler(e, chorus, index)}></input>
           </label>
-          <Tremolo
+          <Chorus
             index={index + 1}
-            tremolo={tremolo}
+            chorus={chorus}
           />
           <label>
             Distortion Toggle

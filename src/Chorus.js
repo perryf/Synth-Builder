@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import update from 'immutability-helper'
 import './Sound.css'
 
-class Tremolo extends Component {
+class Chorus extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      tremolo: this.props.tremolo
+      chorus: this.props.chorus
     }
   }
 
@@ -14,33 +14,29 @@ class Tremolo extends Component {
 
   changeFrequency(slider) {
     let newAmt = slider.target.value * 0.5999 + 0.01
-    console.log(newAmt)
-    let newTremolo = update(this.state.tremolo, {frequency: {value: {$set: newAmt}}})
+    let newChorus = update(this.state.chorus, {frequency: {value: {$set: newAmt}}})
     this.setState({
-      tremolo: newTremolo
+      chorus: newChorus
     })
   }
 
   changeDepth(slider) {
     let newAmt = slider.target.value * 0.01
-    console.log(newAmt)
-    let newTremolo = update(this.state.tremolo, {depth: {$set: newAmt}})
+    let newChorus = update(this.state.chorus, {depth: {$set: newAmt}})
     this.setState({
-      tremolo: newTremolo
+      chorus: newChorus
     })
   }
 
   changeWet(slider) {
     let newAmt = slider.target.value * 0.01
-    console.log(newAmt)
-    let newTremolo = update(this.state.tremolo, {wet: {value: {$set: newAmt}}})
+    let newChorus = update(this.state.chorus, {wet: {value: {$set: newAmt}}})
     this.setState({
-      tremolo: newTremolo
+      chorus: newChorus
     })
   }
 
   render () {
-    // console.log(this.state.tremolo)
     let freqAmt = (
       <input type="range" className="slider" onInput={(e) => this.changeFrequency(e)} />
     )
@@ -51,8 +47,8 @@ class Tremolo extends Component {
       <input type="range" className="slider" defaultValue="0" onInput={(e) => this.changeWet(e)} />
     )
     return (
-      <div className="tremolo">
-        <h2>Tremolo {this.props.index}</h2>
+      <div className="chorus">
+        <h2>Chorus {this.props.index}</h2>
         <div>Frequency: {freqAmt}</div>
         <div>Depth: {depthAmt}</div>
         <div>Dry/Wet: {wetAmt}</div>
@@ -61,4 +57,4 @@ class Tremolo extends Component {
   }
 }
 
-export default Tremolo
+export default Chorus

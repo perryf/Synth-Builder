@@ -17,13 +17,24 @@ import './Main.css'
   var distortionInit = new Tone.BitCrusher(4)
   distortionInit.wet.value = 0
 
+  var colorInit = function() {
+    let palette = '789ABCDEF'
+    let color = '#'
+    for (let i = 0; i < 6; i++) {
+      color += palette[Math.floor(Math.random() * 9)]
+    }
+    console.log(color)
+    return color
+  }
+
 class Main extends Component {
   constructor() {
     super()
     this.state = {
       synths: [synthInit],
       distortions: [distortionInit],
-      choruses: [chorusInit]
+      choruses: [chorusInit],
+      colors: [colorInit()]
     }
   }
 
@@ -44,10 +55,13 @@ class Main extends Component {
     var newDist = new Tone.BitCrusher(4)
     newDist.wet.value = 0
 
+    var newColor = colorInit()
+
     this.setState({
       synths: [...this.state.synths, newSynth],
       choruses: [...this.state.choruses, newChorus],
-      distortions: [...this.state.distortions, newDist]
+      distortions: [...this.state.distortions, newDist],
+      colors: [...this.state.colors, newColor]
     })
   }
 
@@ -55,9 +69,10 @@ class Main extends Component {
     let synths = this.state.synths.map((synth, index) => {
       let chorus = this.state.choruses[index]
       let distortion = this.state.distortions[index]
+      let color = this.state.colors[index]
       this.connectToMaster(synth, chorus, distortion)
       return (
-        <div className="synth" key={index}>
+        <div className="synth" key={index} style={{background: color}}>
           <Sound
             index={index + 1}
             synth={synth}

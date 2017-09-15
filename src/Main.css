@@ -1,5 +1,5 @@
 body {
-  background: #9ba8ee
+  background: #333333
 }
 
 .add-oscillator {
@@ -12,7 +12,7 @@ body {
 }
 
 .add-oscillator:hover {
-  background: #EBB
+  background: #FDFDE9
 }
 
 .synth-container {
@@ -22,7 +22,14 @@ body {
 }
 
 .synth {
-  border: 1px solid black;
+  opacity: 0.9;
+  border: 3px solid black;
+  margin: 6px;
   text-align: center;
   width: 360px;
+  box-shadow: 5px 5px 5px;
+}
+
+.synth:hover {
+  opacity: 1
 }

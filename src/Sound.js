@@ -42,7 +42,8 @@ class Sound extends Component {
     }
   }
   changePitch(slider) {
-    let newPitch = slider.target.value * 55 + 40
+    let newPitch = Math.pow(slider.target.value, 1.8) + 100
+    console.log(newPitch)
     let synth = update(this.state.synth, {frequency: {value: {$set: newPitch}}})
     this.setState({
       synth: synth
@@ -50,7 +51,6 @@ class Sound extends Component {
   }
   changeVolume(slider) {
     let newVolume = (slider.target.value * 0.68) - 48
-    console.log(newVolume)
     let synth = update(this.state.synth, {volume: {value: {$set: newVolume}}})
     this.setState({
       synth: synth
@@ -120,7 +120,7 @@ class Sound extends Component {
     )
     return(
       <div className="effects-box">
-        <h2 className="synth-heading">Synth {this.props.index}</h2>
+        <h2 className="synth-heading">Oscillator {this.props.index}</h2>
         <button className="start-stop" onClick={(e) => this.startStop()}>On/Off</button>
         <div>
           <p className="effects-label">Pitch</p>

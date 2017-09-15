@@ -11,7 +11,7 @@ class Chorus extends Component {
   }
 
   changeFrequency(slider) {
-    let newAmt = slider.target.value * 0.5999 + 0.01
+    let newAmt = slider.target.value * 0.3999 + 0.01
     let newChorus = update(this.state.chorus, {frequency: {value: {$set: newAmt}}})
     this.setState({
       chorus: newChorus

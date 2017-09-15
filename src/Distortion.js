@@ -34,10 +34,16 @@ class Distortion extends Component {
       <input type="range" className="slider" defaultValue="0" onInput={(e) => this.changeWet(e)}/>
     )
     return(
-      <div className="distortion">
-        <h2>Distortion {this.props.index}</h2>
-        <div>Distortion Amount: {distAmt}</div>
-        <div>Dry / Wet: {wetAmt}</div>
+      <div className="effects-box distortion">
+        <h3 className="effects-heading">Distortion</h3>
+        <div>
+          <p className="effects-label">Amount: </p>
+          {distAmt}
+        </div>
+        <div>
+          <p className="effects-label">Dry / Wet: </p>
+          {wetAmt}
+        </div>
       </div>
     )
   }

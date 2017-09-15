@@ -1,7 +1,52 @@
+* {
+  font-family: monospace;
+
+}
+
+.effects-box {
+  border-top: 1px solid black;
+  margin: 0 0 4px;
+}
+
+.drop-down {
+  display: inline-block;
+  margin: auto 30px;
+}
+
 .slider {
-  width: 400px;
+  width: 240px;
 }
 
 .reverse {
   direction: rtl;
+}
+
+.synth-heading {
+  display: inline-block;
+  margin: 10px 0 0;
+}
+
+.start-stop {
+  padding: 6px;
+  background: #ADD;
+  margin-left: 30px;
+}
+
+.start-stop:hover {
+  background: #BED;
+}
+
+.effects-heading {
+  font-size: 1.3em;
+  margin: 10px 0 0;
+}
+
+select {
+  font-size: 1em;
+}
+
+.effects-label {
+  font-size: 1.2em;
+  margin: 4px;
+  display: inline-block;
 }

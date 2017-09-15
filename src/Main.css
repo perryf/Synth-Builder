@@ -1,5 +1,18 @@
 body {
-  background: lemonchiffon
+  background: #9ba8ee
+}
+
+.add-oscillator {
+  font-size: 16px;
+  padding: 6px;
+  margin: 10px auto;
+  text-align: center;
+  display: block;
+  background: lemonchiffon;
+}
+
+.add-oscillator:hover {
+  background: #EBB
 }
 
 .synth-container {
@@ -11,4 +24,5 @@ body {
 .synth {
   border: 1px solid black;
   text-align: center;
+  width: 360px;
 }

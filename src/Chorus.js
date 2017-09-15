@@ -45,11 +45,20 @@ class Chorus extends Component {
       <input type="range" className="slider" defaultValue="0" onInput={(e) => this.changeWet(e)} />
     )
     return (
-      <div className="chorus">
-        <h2>Chorus {this.props.index}</h2>
-        <div>Frequency: {freqAmt}</div>
-        <div>Depth: {depthAmt}</div>
-        <div>Dry/Wet: {wetAmt}</div>
+      <div className="effects-box chorus">
+        <h3 className="effects-heading">Chorus</h3>
+        <div>
+          <p className="effects-label">Frequency: </p>
+          {freqAmt}
+        </div>
+        <div>
+          <p className="effects-label">Depth: </p>
+          {depthAmt}
+        </div>
+        <div>
+          <p className="effects-label">Dry/Wet: </p>
+          {wetAmt}
+        </div>
       </div>
     )
   }

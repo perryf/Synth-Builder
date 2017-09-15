@@ -119,19 +119,28 @@ class Sound extends Component {
       </select>
     )
     return(
-      <div>
-        <h2>Synth {this.props.index}</h2>
-        <button onClick={(e) => this.startStop()}>Start/Stop</button>
-        <p>Pitch</p>
-        {pitchChangerText}
-        <br/>
-        {pitchChanger}
-        <p>Volume</p>
-        {volumeChanger}
-        <p>Wave Form</p>
-        {waveChanger}
-        <p>Partials</p>
-        {partialChanger}
+      <div className="effects-box">
+        <h2 className="synth-heading">Synth {this.props.index}</h2>
+        <button className="start-stop" onClick={(e) => this.startStop()}>On/Off</button>
+        <div>
+          <p className="effects-label">Pitch</p>
+          {pitchChangerText}
+        </div>
+        <div>
+          {pitchChanger}
+        </div>
+        <div>
+          <p className="effects-label">Volume</p>
+          {volumeChanger}
+        </div>
+        <div className="drop-down">
+          <p className="effects-label">Wave Form</p>
+          {waveChanger}
+        </div>
+        <div className="drop-down">
+          <p className="effects-label">Partials</p>
+          {partialChanger}
+        </div>
       </div>
     )
   }

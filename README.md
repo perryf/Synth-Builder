@@ -1,6 +1,6 @@
 # Synth Builder
 By Perry Fustero
-[GitHub](http://github.com) <<--- Post live site here!
+https://synth-builder.surge.sh  <-- Click here to use Synth Builder!
 
 ## Description
 Welcome to Synth Builder!  This is a simple to use website that lets you have fun right off the bat.  Start clicking around to see what kind of sounds you can come up with, or read below to learn more about the features.  

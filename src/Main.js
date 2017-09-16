@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Tone from 'tone'
 import Sound from './Sound'
+import Lfo from './Lfo'
 import Chorus from './Chorus'
 import Distortion from './Distortion'
 import './Main.css'
@@ -10,6 +11,9 @@ import './Main.css'
     oscillator: { type: 'sine' },
     envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.1 }
   })
+
+  var lfoInit = new Tone.AutoFilter(200, 100, 2.6).start()
+  lfoInit.wet.value = 100
 
   var chorusInit = new Tone.Chorus(4, 2.5, 0.5)
   chorusInit.wet.value = 0
@@ -23,7 +27,6 @@ import './Main.css'
     for (let i = 0; i < 6; i++) {
       color += palette[Math.floor(Math.random() * 9)]
     }
-    console.log(color)
     return color
   }
 
@@ -32,14 +35,16 @@ class Main extends Component {
     super()
     this.state = {
       synths: [synthInit],
-      distortions: [distortionInit],
+      lfos: [lfoInit],
       choruses: [chorusInit],
+      distortions: [distortionInit],
       colors: [colorInit()]
     }
   }
 
-  connectToMaster(synth, chorus, distortion) {
-    synth.chain(chorus, distortion, Tone.Master)
+  connectToMaster(synth, lfo, chorus, distortion) {
+    console.log(lfo)
+    synth.chain(lfo, chorus, distortion, Tone.Master)
   }
 
   addSound() {
@@ -48,6 +53,9 @@ class Main extends Component {
       oscillator: { type: 'sine' },
       envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.1 }
     })
+
+    var newLfo = new Tone.AutoFilter()
+    newLfo.wet.value = 0
 
     var newChorus = new Tone.Chorus(9, 1);
     newChorus.wet.value = 0
@@ -59,6 +67,7 @@ class Main extends Component {
 
     this.setState({
       synths: [...this.state.synths, newSynth],
+      lfos: [...this.state.synths, newLfo],
       choruses: [...this.state.choruses, newChorus],
       distortions: [...this.state.distortions, newDist],
       colors: [...this.state.colors, newColor]
@@ -67,22 +76,24 @@ class Main extends Component {
 
   render() {
     let synths = this.state.synths.map((synth, index) => {
+      let lfo = this.state.lfos[index]
       let chorus = this.state.choruses[index]
       let distortion = this.state.distortions[index]
       let color = this.state.colors[index]
-      this.connectToMaster(synth, chorus, distortion)
+      this.connectToMaster(synth, lfo, chorus, distortion)
       return (
         <div className="synth" key={index} style={{background: color}}>
           <Sound
             index={index + 1}
             synth={synth}
           />
+          <Lfo
+            lfo={lfo}
+          />
           <Chorus
-            index={index + 1}
             chorus={chorus}
           />
           <Distortion
-            index={index + 1}
             distortion={this.state.distortions[index]}
           />
         </div>

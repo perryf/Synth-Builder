@@ -43,7 +43,6 @@ class Main extends Component {
   }
 
   connectToMaster(synth, lfo, chorus, distortion) {
-    console.log(lfo)
     synth.chain(lfo, chorus, distortion, Tone.Master)
   }
 
@@ -75,7 +74,6 @@ class Main extends Component {
   }
 
   render() {
-    console.log(this.state.lfos)
     let synths = this.state.synths.map((synth, index) => {
       let lfo = this.state.lfos[index]
       let chorus = this.state.choruses[index]

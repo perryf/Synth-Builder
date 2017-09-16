@@ -32,7 +32,6 @@ class Lfo extends Component {
     })
   }
   render() {
-    console.log(this.state.lfo)
     let freqAmt = (
       <input type="range" className="slider" onInput={(e) => this.changeFrequency(e)} />
     )

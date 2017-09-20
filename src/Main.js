@@ -48,7 +48,7 @@ class Main extends Component {
 
   addSound() {
     var newSynth = new Tone.Synth({
-      frequency: 440,
+      frequency: 400,
       oscillator: { type: 'sine' },
       envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.1 }
     })

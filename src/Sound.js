@@ -32,22 +32,33 @@ class Sound extends Component {
       synth.triggerRelease()
     }
   }
-  changePitchText(input) {
+  changePitch(input) {
+    var pitchText = document.getElementById('pitchText' + this.props.index)
+    var pitchSlide = document.getElementById('pitchSlide' + this.props.index)
     if (input.keyCode === 13) {
-      let newPitch = input.target.value
+      let newPitch = input.target.value || 20
+      pitchSlide.value = Math.pow(pitchText.value - 100, 1/1.8) || 0
+      let synth = update(this.state.synth, {frequency: {value: {$set: newPitch}}})
+      this.setState({
+        synth: synth
+      })
+    }
+    if (input.type === 'input') {
+      let newPitch = Math.pow(input.target.value, 1.8) + 100
+      pitchText.value = Math.round(newPitch)
       let synth = update(this.state.synth, {frequency: {value: {$set: newPitch}}})
       this.setState({
         synth: synth
       })
     }
   }
-  changePitch(slider) {
-    let newPitch = Math.pow(slider.target.value, 1.8) + 100
-    let synth = update(this.state.synth, {frequency: {value: {$set: newPitch}}})
-    this.setState({
-      synth: synth
-    })
-  }
+  // changePitch(slider) {
+  //   let newPitch = Math.pow(slider.target.value, 1.8) + 100
+  //   let synth = update(this.state.synth, {frequency: {value: {$set: newPitch}}})
+  //   this.setState({
+  //     synth: synth
+  //   })
+  // }
   changeVolume(slider) {
     let newVolume = (slider.target.value * 0.68) - 48
     let synth = update(this.state.synth, {volume: {value: {$set: newVolume}}})
@@ -95,8 +106,10 @@ class Sound extends Component {
   }
 
   render() {
-    var pitchChanger = <input type="range" className="slider" defaultValue="7" onInput={(e) => this.changePitch(e)}/>
-    var pitchChangerText = <input type="text" className="text-box" defaultValue="440" onKeyDown={(e) => this.changePitchText(e)} />
+    var idSlider = 'pitchSlide' + this.props.index
+    var idText = 'pitchText' + this.props.index
+    var pitchChanger = <input type="range" id={idSlider} className="slider" defaultValue="24" onInput={(e) => this.changePitch(e)}/>
+    var pitchChangerText = <input type="text" id={idText} className="text-box" defaultValue="400" onKeyDown={(e) => this.changePitch(e)} />
     var volumeChanger = <input type="range" className="slider" onInput={(e) => this.changeVolume(e)}/>
 
     var waveChanger = (

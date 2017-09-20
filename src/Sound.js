@@ -43,7 +43,6 @@ class Sound extends Component {
   }
   changePitch(slider) {
     let newPitch = Math.pow(slider.target.value, 1.8) + 100
-    console.log(newPitch)
     let synth = update(this.state.synth, {frequency: {value: {$set: newPitch}}})
     this.setState({
       synth: synth
@@ -96,8 +95,8 @@ class Sound extends Component {
   }
 
   render() {
-    var pitchChangerText = <input type="text" className="text-box" onKeyDown={(e) => this.changePitchText(e)} />
     var pitchChanger = <input type="range" className="slider" defaultValue="7" onInput={(e) => this.changePitch(e)}/>
+    var pitchChangerText = <input type="text" className="text-box" defaultValue="440" onKeyDown={(e) => this.changePitchText(e)} />
     var volumeChanger = <input type="range" className="slider" onInput={(e) => this.changeVolume(e)}/>
 
     var waveChanger = (

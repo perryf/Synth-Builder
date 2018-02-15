@@ -6,29 +6,29 @@ import Chorus from './Chorus'
 import Distortion from './Distortion'
 import './Main.css'
 
-  var synthInit = new Tone.Synth({
-    frequency: 400,
-    oscillator: { type: 'sine' },
-    envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.1 }
-  })
+var synthInit = new Tone.Synth({
+  frequency: 400,
+  oscillator: { type: 'sine' },
+  envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.1 }
+})
 
-  var lfoInit = new Tone.AutoFilter(200, 100, 2.6).start()
-  lfoInit.wet.value = 0
+var lfoInit = new Tone.AutoFilter(200, 100, 2.6).start()
+lfoInit.wet.value = 0
 
-  var chorusInit = new Tone.Chorus(4, 2.5, 0.5)
-  chorusInit.wet.value = 0
+var chorusInit = new Tone.Chorus(4, 2.5, 0.5)
+chorusInit.wet.value = 0
 
-  var distortionInit = new Tone.BitCrusher(4)
-  distortionInit.wet.value = 0
+var distortionInit = new Tone.BitCrusher(4)
+distortionInit.wet.value = 0
 
-  var colorInit = function() {
-    let palette = '789ABCDEF'
-    let color = '#'
-    for (let i = 0; i < 6; i++) {
-      color += palette[Math.floor(Math.random() * 9)]
-    }
-    return color
+var colorInit = function() {
+  let palette = '789ABCDEF'
+  let color = '#'
+  for (let i = 0; i < 6; i++) {
+    color += palette[Math.floor(Math.random() * 9)]
   }
+  return color
+}
 
 class Main extends Component {
   constructor() {

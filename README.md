@@ -33,6 +33,7 @@ If you are familiar with using a basic synthesizer, this site should be pretty s
 
 ## Technologies Used
 * This site is built using the React framework
-* Tone.js - built on the Web Audio API supply all the sounds/filters
+* [Tone.js](https://tonejs.github.io/) - built on the Web Audio API supply all the sounds/filters
+* [Immutability-helper](https://github.com/kolodny/immutability-helper) - for help working with nested objects in a stateful application. 
 * npm is used for managing packages
 * Javascript, CSS, and HTML

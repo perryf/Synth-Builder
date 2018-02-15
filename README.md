@@ -9,16 +9,24 @@ If you are familiar with using a basic synthesizer, this site should be pretty s
 
 ## Features
 * 'Add Oscillator' button -- Adds another synth to the site.  They can be played in tandem and layered to create complex sounds
+
 #### Oscillator
 * On/Off -- Starts and stop each individual oscillator
 * Pitch text box -- Enter in a frequency value and press enter for the synth to accept it.  
 * Pitch slider -- Slide this bar around to change the pitch
 * Wave form -- Change the fundamental oscillator's wave form (sine, square, sawtooth, triangle)
 * Partials -- These are the overtones of the wave form.  Add more to create a more dense sounding tone
-#### Chorus
-* Frequency -- Speed of the effect
+
+#### LFO
+* Frequency -- Speed/Rate of the effect
 * Depth -- Depth of the effect
 * Wet/Dry -- The percentage of how much effect is being heard.  All the way left (0) will have the effect not be heard.  All the way right (100) will have the source fully effected
+
+#### Chorus
+* Frequency -- Speed/Rate of the effect
+* Depth -- Depth of the effect
+* Wet/Dry -- The percentage of how much effect is being heard
+
 #### Distortion (Technically BitCrusher)
 * Amount -- Intensity of distortion Effect
 * Wet/Dry -- The percentage of how much effect is being heard.  All the way left (0) will have the effect not be heard.  All the way right (100) will have the source fully effected

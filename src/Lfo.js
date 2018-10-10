@@ -9,7 +9,6 @@ class Lfo extends Component {
       lfo: this.props.lfo
     }
   }
-  //frequency, depth, min, octaves(max), wet
   changeFrequency(slider) {
     let newAmt = slider.target.value * 0.399 + 0.2
     let newLfo = update(this.state.lfo, {frequency: {value: {$set: newAmt}}})

@@ -52,13 +52,6 @@ class Sound extends Component {
       })
     }
   }
-  // changePitch(slider) {
-  //   let newPitch = Math.pow(slider.target.value, 1.8) + 100
-  //   let synth = update(this.state.synth, {frequency: {value: {$set: newPitch}}})
-  //   this.setState({
-  //     synth: synth
-  //   })
-  // }
   changeVolume(slider) {
     let newVolume = (slider.target.value * 0.68) - 48
     let synth = update(this.state.synth, {volume: {value: {$set: newVolume}}})
